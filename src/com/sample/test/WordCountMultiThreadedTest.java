@@ -14,8 +14,6 @@ import com.file.wordcount.WordCountMultiThreaded;
 
 public class WordCountMultiThreadedTest {
 
-	Thread[] threads = new Thread[2];
-
 	@Test
 	void setIndexRangeForThreadTest() {
 		List<List<String>> sublists = new ArrayList<>();
@@ -61,7 +59,6 @@ public class WordCountMultiThreadedTest {
 		List<List<String>> sublists = new ArrayList<>();
 		List<String> lineList = new ArrayList<>();
 		Map<String, Integer> wordCountMap = new HashMap<>();
-		int THREAD_COUNT = 5;
 		lineList = Arrays.asList("<program>  Copyright (C) <year>  <name of author>",
 				"Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>",
 				"Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>",
@@ -70,7 +67,7 @@ public class WordCountMultiThreadedTest {
 				"<program>  Copyright (C) <year>  <name of author>");
 		try {
 			WordCountMultiThreaded.setIndexRangeForThread(lineList, sublists);
-			WordCountMultiThreaded.processMultiThreadWordCount(sublists, new Thread[THREAD_COUNT], wordCountMap);
+			WordCountMultiThreaded.processMultiThreadWordCount(sublists, wordCountMap);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -78,5 +75,5 @@ public class WordCountMultiThreadedTest {
 		assertEquals(5, sublists.size());
 
 	}
-	
+
 }

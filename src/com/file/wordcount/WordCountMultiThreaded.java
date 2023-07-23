@@ -32,7 +32,6 @@ public class WordCountMultiThreaded {
 	private static void processWordCountGeneration() {
 		Map<String, Integer> wordCountMap = new HashMap<>();
 		List<String> lineList = new ArrayList<>();
-		Thread[] threads = new Thread[THREAD_COUNT];
 		List<List<String>> sublists = new ArrayList<>();
 		try {
 			// Read the file from given URL
@@ -52,7 +51,7 @@ public class WordCountMultiThreaded {
 			setIndexRangeForThread(lineList, sublists);
 
 			// Invoke method for triggering multi-threading
-			processMultiThreadWordCount(sublists, threads, wordCountMap);
+			processMultiThreadWordCount(sublists, wordCountMap);
 
 			printWordCountValues(wordCountMap);
 		} catch (IOException e) {
@@ -105,9 +104,10 @@ public class WordCountMultiThreaded {
 	 * @param wordCountMap
 	 * @throws InterruptedException
 	 */
-	public static void processMultiThreadWordCount(List<List<String>> sublists, Thread[] threads,
+	public static void processMultiThreadWordCount(List<List<String>> sublists, 
 			Map<String, Integer> wordCountMap) throws InterruptedException {
 		THREAD_COUNT = THREAD_COUNT > sublists.size() ? sublists.size() : THREAD_COUNT;
+		Thread[] threads = new Thread[THREAD_COUNT];
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			int index = i;
 			threads[i] = new Thread(() -> {
